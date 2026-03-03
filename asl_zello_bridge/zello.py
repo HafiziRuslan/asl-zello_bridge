@@ -194,13 +194,18 @@ class ZelloController:
             self._refresh_token = None
             used_refresh = True
         else:
-            self._logger.info('Authenticating with new token')
-            payload['auth_token'] = await self.get_token()
+            token = await self.get_token()
+            if token is not None:
+                self._logger.info('Authenticating with new token')
+                payload['auth_token'] = token
+            else:
+                # Zello Work: username + password only; do not send auth_token
+                self._logger.info('Authenticating with username/password (Zello Work)')
         if self._logger.isEnabledFor(logging.DEBUG):
             self._logger.debug(
                 f"Sending logon payload: {json.dumps(self._redact(payload))}")
-            self._logger.debug(
-                "Auth method: refresh_token" if used_refresh else "Auth method: auth_token")
+            auth_method = "refresh_token" if used_refresh else ("auth_token" if payload.get("auth_token") else "username/password")
+            self._logger.debug(f"Auth method: {auth_method}")
         self._logger.info('Logging in...')
         await ws.send_str(json.dumps(payload))
 
