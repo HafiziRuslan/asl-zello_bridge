@@ -1,17 +1,31 @@
 [project]
-name = "asl-zello-bridge"
-version = "0.0.1"
-requires-python = ">= 3.8"
+name = 'asl-zello_bridge'
+version = '0.0.2a1'
+requires-python = '>=3.8'
 authors = [
-    { name = "Matt G4IYT", email = "matt@g4iyt.uk" }
+  { name = 'Matt G4IYT', email = 'matt@g4iyt.uk' },
+  { name = 'Hafizi 9W2LGX', email = '9w2lgx@mhrtech.my' },
 ]
-readme = "README.md"
-dependencies = [
-    "aiohttp",
-    "cryptography",
-    "pyjwt",
-    "pyogg"
-]
+readme = 'README.md'
+dependencies = ['aiohttp', 'cryptography', 'pyjwt', 'pyogg']
+
+[tool.uv.sources]
+pyogg = { git = 'https://github.com/TeamPyOgg/PyOgg' }
 
 [project.scripts]
-asl-zello-bridge = "asl_zello_bridge.__main__:main"
+asl-zello_bridge = 'src.__main__:main'
+
+[tool.uv]
+package = true
+
+[tool.ruff]
+line-length = 150
+analyze.detect-string-imports = true
+format.quote-style = 'single'
+format.indent-style = 'tab'
+format.docstring-code-format = true
+format.line-ending = 'lf'
+format.skip-magic-trailing-comma = true
+lint.isort.combine-as-imports = true
+lint.isort.default-section = 'first-party'
+lint.isort.force-single-line = true
