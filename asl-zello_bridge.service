@@ -1,7 +1,7 @@
 [Unit]
-Description=AllStarLink Zello Bridge
-Wants=network-online.target
-After=network-online.target
+Description=AllStarLink-Zello_Bridge Service
+After=netcheck.service
+Requires=netcheck.service
 
 [Service]
 ExecStart=./.venv/bin/asl-zello_bridge

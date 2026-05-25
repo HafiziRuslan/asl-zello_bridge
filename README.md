@@ -99,7 +99,7 @@ uv sync
 Adjust `asl-zello_bridge` to point to where the script is installed:
 
 ```bash
-sudo ls asl-zello_bridge.service /etc/systemd/system/
+sudo ln -s asl-zello_bridge.service /usr/lib/systemd/system/
 sudo systemctl edit asl-zello_bridge
 ```
 
