@@ -184,7 +184,7 @@ Environment=LOG_LEVEL=DEBUG
 Environment=LOG_FORMAT="%(levelname)s:%(name)s:%(message)s"
 
 # Log directory
-Environment=LOG_FORMAT="/var/log/asl-zello_bridge"
+Environment=LOG_DIR="/var/log/asl-zello_bridge"
 
 # RX audio gain in dB
 Environment=USRP_GAIN_RX_DB=0
