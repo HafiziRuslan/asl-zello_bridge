@@ -1,28 +1,21 @@
-FROM python:3.12.8-slim-bookworm
+FROM python:slim
+
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Install dependencies
 RUN apt-get update \
-    && apt-get install -y python3-setuptools python3-venv python3-pip git libogg-dev libopusenc-dev libflac-dev libopusfile-dev libopus-dev libvorbis-dev libopus0
+    && apt-get install -y git libogg-dev libopusenc-dev libflac-dev libopusfile-dev libopus-dev libvorbis-dev libopus0 \
+    && apt-get clean
 
 # Create virtual environment for bridge
-RUN mkdir -p /opt/asl-zello-bridge/venv \
-    && python3 -m venv /opt/asl-zello-bridge/venv
-
-# Ensure setuptools installed
-RUN /opt/asl-zello-bridge/venv/bin/pip install setuptools
-
-# Install PyOgg to venv
-RUN cd /opt \
-    && git clone https://github.com/TeamPyOgg/PyOgg.git \
-    && cd PyOgg \
-    && /opt/asl-zello-bridge/venv/bin/python setup.py install
+ENV VIRTUAL_ENV=/opt/asl-zello_bridge/venv
+RUN uv venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install bridge
-ADD . /opt/asl-zello-bridge
-RUN cd /opt/asl-zello-bridge \
-    && /opt/asl-zello-bridge/venv/bin/pip3 install .
+ADD . /opt/asl-zello_bridge
+RUN cd /opt/asl-zello_bridge \
+    && uv sync
 
-# Cleanup
-RUN apt-get clean
-
-CMD ["/opt/asl-zello-bridge/venv/bin/asl-zello-bridge"]
+CMD ["asl-zello_bridge"]

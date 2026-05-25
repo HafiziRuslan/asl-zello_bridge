@@ -6,10 +6,10 @@ Tested with:
 
 * [AllStarLink](https://www.allstarlink.org/) `chan_usrp`
 * [DVSwitch](https://dvswitch.groups.io/g/main?) `Analog_Bridge`
-* [MMDVM\_CM](https://github.com/juribeparada/MMDVM_CM) `USRP2DMR` and `USRP2YSF`
+* [MMDVM_CM](https://github.com/juribeparada/MMDVM_CM) `USRP2DMR` and `USRP2YSF`
 * [SvxLink](https://www.svxlink.org/) via a third-party USRP module
 
-The original inspiration for this project was the work done by [Rob G4ZWH](https://www.qrz.com/db/G4ZWH) to build a public Zello bridge to the [FreeSTAR](https://freestar.network/) network using SIP softphones and the Zello Windows client. This was well received but had limitations. [Matt G4IYT](https://www.qrz.com/db/G4IYT) later rebuilt the bridge as a dedicated service using the [Zello Channels API](https://github.com/zelloptt/zello-channel-api/blob/master/API.md).
+The original inspiration for this project was the work done by [Rob G4ZWH](https://www.qrz.com/db/G4ZWH) to build a public Zello bridge to the [FreeSTAR](https://freestar.network) network using SIP softphones and the Zello Windows client. This was well received but had limitations. [Matt G4IYT](https://www.qrz.com/db/G4IYT) later rebuilt the bridge as a dedicated service using the [Zello Channels API](https://github.com/zelloptt/zello-channel-api/blob/master/API.md).
 
 Current users of the bridge include:
 
@@ -23,23 +23,22 @@ The bridge does not require significant resources. The FreeSTAR bridge runs on a
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-  - [Dependencies](#dependencies)
-  - [Install with pip + venv](#install-with-pip--venv)
-  - [Install with setup.py (deprecated)](#deprecated-install-with-setuppy)
-  - [Docker](#docker)
-- [Setup Service](#setup-service)
-  - [Common Parameters](#common-parameters-used-in-both-free-and-work)
-  - [Zello Free Example](#zello-free-example)
-  - [Zello Work Example](#zello-work-example)
-  - [Optional Parameters](#optional-parameters)
-  - [Enable and Start Service](#enable-and-start-service)
-- [AllStarLink Setup](#allstarlink-setup)
-  - [Configure `rpt.conf`](#configure-rptconf)
-  - [`privatenodes.txt` (Supermon/AllScan)](#privatenodestxt-supermonallscan)
-  - [Allmon3 Overrides (`web.ini`)](#allmon3-overrides-webini)
-- [Credits](#credits)
+* [Prerequisites](#prerequisites)
+* [Installation](#installation)
+  * [Dependencies](#dependencies)
+  * [Install with uv](#install-with-uv)
+  * [Docker](#docker)
+* [Setup Service](#setup-service)
+  * [Common Parameters](#common-parameters-used-in-both-free-and-work)
+  * [Zello Free Example](#zello-free-example)
+  * [Zello Work Example](#zello-work-example)
+  * [Optional Parameters](#optional-parameters)
+  * [Enable and Start Service](#enable-and-start-service)
+* [AllStarLink Setup](#allstarlink-setup)
+  * [Configure `rpt.conf`](#configure-rptconf)
+  * [`privatenodes.txt` (Supermon/AllScan)](#privatenodestxt-supermonallscan)
+  * [Allmon3 Overrides (`web.ini`)](#allmon3-overrides-webini)
+* [Credits](#credits)
 
 ---
 
@@ -54,7 +53,7 @@ The bridge needs a Zello account to log into. This account represents the “use
 3. Convert this account into a developer account by logging into the [Zello Developers Console](https://developers.zello.com/).
 4. Under **Keys**, click **Add Key**. Save both the **Issuer** and the **Private Key**.
 
-> The private key is long. Copy the entire contents and save them to a `.key` file (for example, `/opt/asl-zello-bridge/zello.key`). You will reference this file in your service configuration.
+> The private key is long. Copy the entire contents and save them to a `.key` file (for example, `/opt/asl-zello_bridge/zello.key`). You will reference this file in your service configuration.
 
 ---
 
@@ -64,11 +63,8 @@ These instructions were tested with Debian 12. Adjust as needed for other system
 
 There are three installation methods:
 
-* **pip + venv (recommended):** modern, isolated, avoids interfering with system packages.
-* **setup.py (deprecated):** used in early versions, but may break system dependencies.
+* **uv (recommended):** modern, isolated, avoids interfering with system packages.
 * **docker:** containerized deployment on Docker/Podman/Kubernetes.
-
-> The `setup.py` method is deprecated in favor of `pip + venv`. Users have reported issues on Debian 12 and Ubuntu 24. If you installed with `setup.py`, it will still work, but upgrading is recommended.
 
 ### Dependencies
 
@@ -76,7 +72,7 @@ There are three installation methods:
 apt-get install libogg-dev libopusenc-dev libflac-dev libopusfile-dev libopus-dev libvorbis-dev libopus0 git
 ```
 
-### Install with pip + venv
+### Install with uv
 
 Install Python dependencies:
 
@@ -88,60 +84,23 @@ Download code:
 
 ```bash
 cd /opt
-git clone https://github.com/mattmelling/asl-zello-bridge.git
+git clone https://github.com/HafiziRuslan/asl-zello_bridge.git
 ```
 
-Create venv:
+Install the bridge with uv:
 
 ```bash
-mkdir -p /opt/asl-zello-bridge/venv
-python3 -m venv /opt/asl-zello-bridge/venv
+cd /opt/asl-zello_bridge
+uv sync
 ```
-
-Install `pyogg` from source:
-
-```bash
-git clone https://github.com/TeamPyOgg/PyOgg.git
-cd PyOgg
-/opt/asl-zello-bridge/venv/bin/python setup.py install
-```
-
-Install the bridge:
-
-```bash
-cd /opt/asl-zello-bridge
-/opt/asl-zello-bridge/venv/bin/pip3 install .
-```
-
-### \[DEPRECATED] Install with setup.py
-
-Install `pyogg`:
-
-```bash
-git clone https://github.com/TeamPyOgg/PyOgg.git
-cd PyOgg
-sudo python setup.py install
-```
-
-Install the bridge:
-
-```bash
-git clone https://github.com/mattmelling/asl-zello-bridge.git
-cd asl-zello-bridge
-sudo python3 setup.py install
-```
-
-At this point, `asl_zello_bridge` should be on your `$PATH`.
-
----
 
 ## Setup Service
 
-If you installed with `setup.py`, adjust `asl-zello-bridge.service` to point to where the script is installed:
+Adjust `asl-zello_bridge` to point to where the script is installed:
 
 ```bash
-sudo cp asl-zello-bridge.service /etc/systemd/system/
-sudo systemctl edit asl-zello-bridge.service
+sudo ls asl-zello_bridge.service /etc/systemd/system/
+sudo systemctl edit asl-zello_bridge
 ```
 
 When the editor opens, set environment variables under `[Service]`.
@@ -190,7 +149,7 @@ Environment=ZELLO_PASSWORD=mypass
 Environment=ZELLO_CHANNEL="My Test Channel"
 
 # Zello Free variables
-Environment=ZELLO_PRIVATE_KEY=/opt/asl-zello-bridge/zello.key
+Environment=ZELLO_PRIVATE_KEY=/opt/asl-zello_bridge/zello.key
 Environment=ZELLO_ISSUER=my-issuer-id
 Environment=ZELLO_WS_ENDPOINT=wss://zello.io/ws
 ```
@@ -224,6 +183,9 @@ Environment=LOG_LEVEL=DEBUG
 # Log format (see Python logging docs)
 Environment=LOG_FORMAT="%(levelname)s:%(name)s:%(message)s"
 
+# Log directory
+Environment=LOG_FORMAT="/var/log/asl-zello_bridge"
+
 # RX audio gain in dB
 Environment=USRP_GAIN_RX_DB=0
 
@@ -234,8 +196,8 @@ Environment=USRP_GAIN_TX_DB=0
 ### Enable and Start Service
 
 ```bash
-sudo systemctl enable asl-zello-bridge.service
-sudo systemctl start asl-zello-bridge.service
+sudo systemctl enable asl-zello_bridge
+sudo systemctl start asl-zello_bridge
 ```
 
 ---
@@ -269,7 +231,7 @@ This creates node `1001` on your server with a USRP rxchannel for your Zello bri
 
 To make node `1001` display nicely in Supermon/AllScan, add an entry to `/etc/asterisk/privatenodes.txt`:
 
-```
+```text
 Node | Callsign | Description   | Location
 1001 | MyCall   | Zello Channel | QTH
 ```
@@ -324,7 +286,7 @@ Resulting section:
 A `Dockerfile` is included:
 
 ```bash
-docker build -t asl-zello-bridge .
+docker build -t asl-zello_bridge .
 ```
 
 Run with required environment variables (Zello Free example):
@@ -341,8 +303,8 @@ docker run --rm -it \
   -e ZELLO_USERNAME=myuser \
   -e ZELLO_PASSWORD=mypass \
   -e ZELLO_ISSUER=my-issuer-id \
-  -v /src/asl-zello-bridge/test.key:/test.key \
-  asl-zello-bridge
+  -v /src/asl-zello_bridge/test.key:/test.key \
+  asl-zello_bridge
 ```
 
 This also works with `docker-compose`, Kubernetes, or any container runtime.
@@ -351,7 +313,7 @@ This also works with `docker-compose`, Kubernetes, or any container runtime.
 
 ## Credits
 
-`asl-zello-bridge` is built and maintained by [Matt G4IYT](https://www.qrz.com/db/G4IYT)
+`asl-zello_bridge` is built and maintained by [Matt G4IYT](https://www.qrz.com/db/G4IYT), enhanced by [Hafizi 9W2LGX](https://www.qrz.com/db/9W2LGX)
 
 Special thanks to:
 

@@ -1,2 +1,5 @@
-/asl_zello_bridge/__pycache__/
+.venv
+*.key
+*/__pycache__/
 /.direnv/
+*/asl_zello_bridge.egg-info

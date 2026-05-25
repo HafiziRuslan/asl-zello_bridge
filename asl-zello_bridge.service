@@ -1,0 +1,11 @@
+[Unit]
+Description=AllStarLink Zello Bridge
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=./.venv/bin/asl-zello_bridge
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
