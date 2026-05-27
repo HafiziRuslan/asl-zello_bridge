@@ -6,7 +6,7 @@ from .zello import ZelloController
 from .usrp import USRPController
 from .stream import AsyncByteStream
 
-log_level = os.environ.get('LOG_LEVEL', 'INFO').lower()
+log_level = os.environ.get('LOG_LEVEL', 'INFO').upper()
 log_format = os.environ.get('LOG_FORMAT', '%(asctime)s | %(levelname)s | %(name)s | %(message)s')
 log_dir = os.environ.get('LOG_DIR')
 log_max_bytes = int(os.environ.get('LOG_MAX_BYTES', 2 * 1024 * 1024))
