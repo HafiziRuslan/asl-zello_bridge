@@ -99,7 +99,7 @@ uv sync
 Adjust `zello_bridge` to point to where the script is installed:
 
 ```bash
-sudo ln zello_bridge.service /usr/lib/systemd/system/
+sudo ln -s /opt/Zello_Bridge/zello_bridge.service /usr/lib/systemd/system/
 sudo systemctl edit zello_bridge
 ```
 

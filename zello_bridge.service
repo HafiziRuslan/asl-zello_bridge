@@ -4,7 +4,8 @@ After=netcheck.service
 Requires=netcheck.service
 
 [Service]
-ExecStart=./.venv/bin/zello_bridge
+WorkingDirectory=/opt/Zello_Bridge
+ExecStart=/opt/Zello_Bridge/.venv/bin/zello_bridge
 Restart=always
 
 [Install]
