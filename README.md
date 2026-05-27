@@ -149,7 +149,7 @@ Environment=ZELLO_PASSWORD=mypass
 Environment=ZELLO_CHANNEL="My Test Channel"
 
 # Zello Free variables
-Environment=ZELLO_PRIVATE_KEY=/opt/zello_bridge/zello.key
+Environment=ZELLO_PRIVATE_KEY=/opt/Zello_Bridge/zello.key
 Environment=ZELLO_ISSUER=my-issuer-id
 Environment=ZELLO_WS_ENDPOINT=wss://zello.io/ws
 ```
@@ -181,10 +181,10 @@ Environment=ZELLO_WS_ENDPOINT=wss://zellowork.io/ws/mynetwork
 Environment=LOG_LEVEL=DEBUG
 
 # Log format (see Python logging docs)
-Environment=LOG_FORMAT="%(levelname)s:%(name)s:%(message)s"
+Environment=LOG_FORMAT="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
 
 # Log directory
-Environment=LOG_DIR="/var/log/Zello_Bridge"
+Environment=LOG_DIR="/var/log/zello_bridge"
 
 # RX audio gain in dB
 Environment=USRP_GAIN_RX_DB=0
