@@ -53,7 +53,7 @@ The bridge needs a Zello account to log into. This account represents the “use
 3. Convert this account into a developer account by logging into the [Zello Developers Console](https://developers.zello.com/).
 4. Under **Keys**, click **Add Key**. Save both the **Issuer** and the **Private Key**.
 
-> The private key is long. Copy the entire contents and save them to a `.key` file (for example, `/opt/zello_brigde/zello.key`). You will reference this file in your service configuration.
+> The private key is long. Copy the entire contents and save them to a `.key` file (for example, `/opt/zello_bridge/zello.key`). You will reference this file in your service configuration.
 
 ---
 
@@ -84,23 +84,23 @@ Download code:
 
 ```bash
 cd /opt
-git clone https://github.com/HafiziRuslan/Zello_Brigde.git
+git clone https://github.com/HafiziRuslan/Zello_Bridge.git
 ```
 
 Install the bridge with uv:
 
 ```bash
-cd /opt/Zello_Brigde
+cd /opt/Zello_Bridge
 uv sync
 ```
 
 ## Setup Service
 
-Adjust `zello_brigde` to point to where the script is installed:
+Adjust `zello_bridge` to point to where the script is installed:
 
 ```bash
-sudo ln -s zello_brigde.service /usr/lib/systemd/system/
-sudo systemctl edit zello_brigde
+sudo ln zello_bridge.service /usr/lib/systemd/system/
+sudo systemctl edit zello_bridge
 ```
 
 When the editor opens, set environment variables under `[Service]`.
@@ -149,7 +149,7 @@ Environment=ZELLO_PASSWORD=mypass
 Environment=ZELLO_CHANNEL="My Test Channel"
 
 # Zello Free variables
-Environment=ZELLO_PRIVATE_KEY=/opt/zello_brigde/zello.key
+Environment=ZELLO_PRIVATE_KEY=/opt/zello_bridge/zello.key
 Environment=ZELLO_ISSUER=my-issuer-id
 Environment=ZELLO_WS_ENDPOINT=wss://zello.io/ws
 ```
@@ -184,7 +184,7 @@ Environment=LOG_LEVEL=DEBUG
 Environment=LOG_FORMAT="%(levelname)s:%(name)s:%(message)s"
 
 # Log directory
-Environment=LOG_DIR="/var/log/Zello_Brigde"
+Environment=LOG_DIR="/var/log/Zello_Bridge"
 
 # RX audio gain in dB
 Environment=USRP_GAIN_RX_DB=0
@@ -196,8 +196,8 @@ Environment=USRP_GAIN_TX_DB=0
 ### Enable and Start Service
 
 ```bash
-sudo systemctl enable zello_brigde
-sudo systemctl start zello_brigde
+sudo systemctl enable zello_bridge
+sudo systemctl start zello_bridge
 ```
 
 ---
@@ -286,7 +286,7 @@ Resulting section:
 A `Dockerfile` is included:
 
 ```bash
-docker build -t zello_brigde .
+docker build -t zello_bridge .
 ```
 
 Run with required environment variables (Zello Free example):
@@ -303,8 +303,8 @@ docker run --rm -it \
   -e ZELLO_USERNAME=myuser \
   -e ZELLO_PASSWORD=mypass \
   -e ZELLO_ISSUER=my-issuer-id \
-  -v /src/zello_brigde/test.key:/test.key \
-  zello_brigde
+  -v /src/zello_bridge/test.key:/test.key \
+  zello_bridge
 ```
 
 This also works with `docker-compose`, Kubernetes, or any container runtime.
@@ -313,7 +313,7 @@ This also works with `docker-compose`, Kubernetes, or any container runtime.
 
 ## Credits
 
-`zello_brigde` is built and maintained by [Matt G4IYT](https://www.qrz.com/db/G4IYT), enhanced by [Hafizi 9W2LGX](https://www.qrz.com/db/9W2LGX)
+`zello_bridge` is built and maintained by [Matt G4IYT](https://www.qrz.com/db/G4IYT), enhanced by [Hafizi 9W2LGX](https://www.qrz.com/db/9W2LGX)
 
 Special thanks to:
 
