@@ -1,10 +1,10 @@
 [Unit]
-Description=AllStarLink-Zello_Bridge Service
+Description=Zello_Bridge Service
 After=netcheck.service
 Requires=netcheck.service
 
 [Service]
-ExecStart=./.venv/bin/asl-zello_bridge
+ExecStart=./.venv/bin/zello_brigde
 Restart=always
 
 [Install]

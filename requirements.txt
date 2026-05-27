@@ -105,7 +105,7 @@ aiohttp==3.10.11 ; python_full_version < '3.9' \
     --hash=sha256:fc31820cfc3b2863c6e95e14fcf815dc7afe52480b4dc03393c4873bb5599f71 \
     --hash=sha256:fdf6429f0caabfd8a30c4e2eaecb547b3c340e4730ebfe25139779b9815ba138 \
     --hash=sha256:ffbfde2443696345e23a3c597049b1dd43049bb65337837574205e7368472177
-    # via asl-zello-bridge
+    # via zello-brigde
 aiohttp==3.13.5 ; python_full_version >= '3.9' \
     --hash=sha256:019a67772e034a0e6b9b17c13d0a8fe56ad9fb150fc724b7f3ffd3724288d9e5 \
     --hash=sha256:02222e7e233295f40e011c1b00e3b0bd451f22cf853a0304c3595633ee47da4b \
@@ -227,7 +227,7 @@ aiohttp==3.13.5 ; python_full_version >= '3.9' \
     --hash=sha256:fceedde51fbd67ee2bcc8c0b33d0126cc8b51ef3bbde2f86662bd6d5a6f10ec5 \
     --hash=sha256:fe6970addfea9e5e081401bcbadf865d2b6da045472f58af08427e108d618540 \
     --hash=sha256:fee86b7c4bd29bdaf0d53d14739b08a106fdda809ca5fe032a15f52fae5fe254
-    # via asl-zello-bridge
+    # via zello-brigde
 aiosignal==1.3.1 ; python_full_version < '3.9' \
     --hash=sha256:54cd96e15e1649b75d6c87526a6ff0b6c1b0dd3459f43d9ca11d48c339b68cfc \
     --hash=sha256:f8376fb07dd1e86a584e4fcdec80b36b7f81aac666ebc724e2c090300dd83b17
@@ -453,7 +453,7 @@ cryptography==47.0.0 ; python_full_version <= '3.9' \
     --hash=sha256:f5c3296dab66202f1b18a91fa266be93d6aa0c2806ea3d67762c69f60adc71aa \
     --hash=sha256:f7db373287273d8af1414cf95dc4118b13ffdc62be521997b0f2b270771fef50 \
     --hash=sha256:f9a034b642b960767fb343766ae5ba6ad653f2e890ddd82955aef288ffea8736
-    # via asl-zello-bridge
+    # via zello-brigde
 cryptography==48.0.0 ; python_full_version > '3.9' \
     --hash=sha256:0890f502ddf7d9c6426129c3f49f5c0a39278ed7cd6322c8755ffca6ee675a13 \
     --hash=sha256:0c558d2cdffd8f4bbb30fc7134c74d2ca9a476f830bb053074498fbc86f41ed6 \
@@ -504,7 +504,7 @@ cryptography==48.0.0 ; python_full_version > '3.9' \
     --hash=sha256:ecde28a596bead48b0cfd2a1b4416c3d43074c2d785e3a398d7ec1fc4d0f7fbb \
     --hash=sha256:f5333311663ea94f75dd408665686aaf426563556bb5283554a3539177e03b8c \
     --hash=sha256:fdfef35d751d510fcef5252703621574364fec16418c4a1e5e1055248401054b
-    # via asl-zello-bridge
+    # via zello-brigde
 frozenlist==1.5.0 ; python_full_version < '3.9' \
     --hash=sha256:000a77d6034fbad9b6bb880f7ec073027908f1b40254b5d6f26210d2dab1240e \
     --hash=sha256:03d33c2ddbc1816237a67f66336616416e2bbb6beb306e5f890f2eb22b959cdf \
@@ -1351,13 +1351,13 @@ pycparser==3.0 ; python_full_version >= '3.10' and implementation_name != 'PyPy'
 pyjwt==2.9.0 ; python_full_version < '3.9' \
     --hash=sha256:3b02fb0f44517787776cf48f2ae25d8e14f300e6d7545a4315cee571a415e850 \
     --hash=sha256:7e1e5b56cc735432a7369cbfa0efe50fa113ebecdc04ae6922deba8b84582d0c
-    # via asl-zello-bridge
+    # via zello-brigde
 pyjwt==2.13.0 ; python_full_version >= '3.9' \
     --hash=sha256:41571c89ca91598c79e8ef18a2d07367d4810fbbd6f637794879baf1b7703423 \
     --hash=sha256:66adcc2aff09b3f1bbd95fc1e1577df8ac8723c978552fd43304c8a290ac5728
-    # via asl-zello-bridge
+    # via zello-brigde
 pyogg @ git+https://github.com/TeamPyOgg/PyOgg@4118fc40067eb475468726c6bccf1242abfc24fc
-    # via asl-zello-bridge
+    # via zello-brigde
 typing-extensions==4.13.2 ; python_full_version < '3.9' \
     --hash=sha256:a439e7c04b49fec3e5d3e2beaa21755cadbbdc391694e28ccdd36ca4a1408f8c \
     --hash=sha256:e6c81219bd689f51865d9e372991c540bda33a0379d5573cddb9a3a23f7caaef

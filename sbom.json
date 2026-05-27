@@ -2,9 +2,9 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
   "version": 1,
-  "serialNumber": "urn:uuid:291977e5-1410-4624-a169-e80d2a282a44",
+  "serialNumber": "urn:uuid:abf9c078-4304-4f7d-a664-221eea6db409",
   "metadata": {
-    "timestamp": "2026-05-25T16:11:47.263729500Z",
+    "timestamp": "2026-05-27T12:48:04.360467900Z",
     "tools": [
       {
         "vendor": "Astral Software Inc.",
@@ -14,8 +14,8 @@
     ],
     "component": {
       "type": "library",
-      "bom-ref": "asl-zello-bridge-1@0.0.2a1",
-      "name": "asl-zello-bridge",
+      "bom-ref": "zello-brigde-1@0.0.2a1",
+      "name": "zello-brigde",
       "version": "0.0.2a1",
       "properties": [
         {
@@ -502,18 +502,6 @@
       ]
     },
     {
-      "ref": "asl-zello-bridge-1@0.0.2a1",
-      "dependsOn": [
-        "aiohttp-5@3.10.11",
-        "aiohttp-6@3.13.5",
-        "cryptography-14@47.0.0",
-        "cryptography-15@48.0.0",
-        "pyjwt-27@2.9.0",
-        "pyjwt-28@2.13.0",
-        "pyogg-29@0.7"
-      ]
-    },
-    {
       "ref": "async-timeout-9@5.0.1"
     },
     {
@@ -630,6 +618,18 @@
         "idna-19@3.16",
         "multidict-21@6.7.1",
         "propcache-24@0.5.2"
+      ]
+    },
+    {
+      "ref": "zello-brigde-1@0.0.2a1",
+      "dependsOn": [
+        "aiohttp-5@3.10.11",
+        "aiohttp-6@3.13.5",
+        "cryptography-14@47.0.0",
+        "cryptography-15@48.0.0",
+        "pyjwt-27@2.9.0",
+        "pyjwt-28@2.13.0",
+        "pyogg-29@0.7"
       ]
     }
   ]
