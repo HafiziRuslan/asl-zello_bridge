@@ -1859,5 +1859,5 @@ wheels = [
 ]
 
 [[packages]]
-name = "zello-brigde"
+name = "zello-bridge"
 directory = { path = ".", editable = true }

@@ -1,5 +1,5 @@
 [project]
-name = 'Zello_Brigde'
+name = 'Zello_Bridge'
 version = '0.0.2a1'
 requires-python = '>=3.8'
 authors = [
@@ -13,7 +13,7 @@ dependencies = ['aiohttp', 'cryptography', 'pyjwt', 'pyogg']
 pyogg = { git = 'https://github.com/TeamPyOgg/PyOgg' }
 
 [project.scripts]
-zello_brigde = 'src.__main__:main'
+zello_bridge = 'src.__main__:main'
 
 [tool.uv]
 package = true

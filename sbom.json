@@ -2,9 +2,9 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
   "version": 1,
-  "serialNumber": "urn:uuid:abf9c078-4304-4f7d-a664-221eea6db409",
+  "serialNumber": "urn:uuid:8dedc296-7424-49ee-b48b-6f423c4e831e",
   "metadata": {
-    "timestamp": "2026-05-27T12:48:04.360467900Z",
+    "timestamp": "2026-05-27T13:17:27.268690700Z",
     "tools": [
       {
         "vendor": "Astral Software Inc.",
@@ -14,8 +14,8 @@
     ],
     "component": {
       "type": "library",
-      "bom-ref": "zello-brigde-1@0.0.2a1",
-      "name": "zello-brigde",
+      "bom-ref": "zello-bridge-1@0.0.2a1",
+      "name": "zello-bridge",
       "version": "0.0.2a1",
       "properties": [
         {
@@ -621,7 +621,7 @@
       ]
     },
     {
-      "ref": "zello-brigde-1@0.0.2a1",
+      "ref": "zello-bridge-1@0.0.2a1",
       "dependsOn": [
         "aiohttp-5@3.10.11",
         "aiohttp-6@3.13.5",

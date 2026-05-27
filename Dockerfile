@@ -9,13 +9,13 @@ RUN apt-get update \
     && apt-get clean
 
 # Create virtual environment for bridge
-ENV VIRTUAL_ENV=/opt/zello_brigde/venv
+ENV VIRTUAL_ENV=/opt/zello_bridge/venv
 RUN uv venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install bridge
-ADD . /opt/zello_brigde
-RUN cd /opt/zello_brigde \
+ADD . /opt/zello_bridge
+RUN cd /opt/zello_bridge \
     && uv sync
 
-CMD ["zello_brigde"]
+CMD ["zello_bridge"]
