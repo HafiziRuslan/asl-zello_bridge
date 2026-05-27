@@ -130,7 +130,7 @@ Environment=ZELLO_USERNAME=myuser
 Environment=ZELLO_PASSWORD=mypass
 
 # Zello channel name (must match exactly, case-sensitive)
-Environment=ZELLO_CHANNEL='["Channel1", "Channel2"]'
+Environment=ZELLO_CHANNEL="My Test Channel"
 ```
 
 ### Zello Free Example
@@ -146,7 +146,7 @@ Environment=USRP_TXPORT=32001
 # Zello credentials
 Environment=ZELLO_USERNAME=myuser
 Environment=ZELLO_PASSWORD=mypass
-Environment=ZELLO_CHANNEL='["Channel1", "Channel2"]'
+Environment=ZELLO_CHANNEL="My Test Channel"
 
 # Zello Free variables
 Environment=ZELLO_PRIVATE_KEY=/opt/Zello_Bridge/zello.key
@@ -167,7 +167,7 @@ Environment=USRP_TXPORT=32001
 # Zello credentials
 Environment=ZELLO_USERNAME=myuser
 Environment=ZELLO_PASSWORD=mypass
-Environment=ZELLO_CHANNEL='["Channel1", "Channel2"]'
+Environment=ZELLO_CHANNEL="My Test Channel"
 
 # Zello Work variables
 Environment=ZELLO_API_ENDPOINT=https://mynetwork.zellowork.com
@@ -298,7 +298,7 @@ docker run --rm -it \
   -e USRP_RXPORT=34001 \
   -e USRP_TXPORT=32001 \
   -e ZELLO_WS_ENDPOINT=wss://zello.io/ws \
-  -e ZELLO_CHANNEL='["Channel1", "Channel2"]' \
+  -e ZELLO_CHANNEL="My Test Channel" \
   -e ZELLO_PRIVATE_KEY=/test.key \
   -e ZELLO_USERNAME=myuser \
   -e ZELLO_PASSWORD=mypass \
