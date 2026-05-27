@@ -147,12 +147,27 @@ class ZelloController:
 			self._frame_bytes = 0
 
 	async def authenticate(self, ws):
+		zello_channel_env = os.environ.get('ZELLO_CHANNEL')
+		try:
+			# Attempt to parse ZELLO_CHANNEL as a JSON array
+			channels = json.loads(zello_channel_env)
+			if not isinstance(channels, list):
+				raise ValueError('ZELLO_CHANNEL environment variable must be a JSON array of strings.')
+			# Filter out any non-string items or empty strings
+			channels = [str(c) for c in channels if isinstance(c, (str, int, float)) and str(c).strip()]
+			if not channels:
+				self._logger.error('Parsed ZELLO_CHANNEL list is empty or contains no valid channel names. Defaulting to a single empty string.')
+				channels = ['']  # Provide a fallback if parsed list is empty
+		except (json.JSONDecodeError, ValueError):
+			self._logger.warning(f"ZELLO_CHANNEL '{zello_channel_env}' is not a valid JSON array. Treating as a single channel string.")
+			channels = [zello_channel_env]  # Fallback to single channel if not a valid JSON array
+
 		payload = {
 			'command': 'logon',
 			'seq': self.get_seq(),
 			'username': os.environ.get('ZELLO_USERNAME'),
 			'password': os.environ.get('ZELLO_PASSWORD'),
-			'channels': [os.environ.get('ZELLO_CHANNEL')],
+			'channels': channels,  # Use the parsed list of channels
 		}
 		self._auth_in_progress = True
 		self._auth_started_at = time.monotonic()
@@ -282,10 +297,28 @@ class ZelloController:
 		if self._logger.isEnabledFor(logging.DEBUG):
 			self._logger.debug('Requesting Zello stream...')
 		seq_val = self.get_seq()
+
+		zello_channel_env = os.environ.get('ZELLO_CHANNEL')
+		tx_channel = None
+		try:
+			# Attempt to parse ZELLO_CHANNEL as a JSON array
+			channels = json.loads(zello_channel_env)
+			if isinstance(channels, list) and channels:
+				tx_channel = str(channels[0])  # Transmit on the first valid channel in the list
+			else:
+				self._logger.warning(f"ZELLO_CHANNEL '{zello_channel_env}' is an empty or invalid JSON array. Fallback to single channel string.")
+				tx_channel = zello_channel_env  # Fallback if list is empty or invalid
+		except (json.JSONDecodeError, ValueError):
+			tx_channel = zello_channel_env  # Fallback to single channel string if not a valid JSON array
+
+		if not tx_channel or not str(tx_channel).strip():
+			self._logger.error('No valid ZELLO_CHANNEL specified for transmission.')
+			return
+
 		start_payload = {
 			'command': 'start_stream',
 			'seq': seq_val,
-			'channel': os.environ.get('ZELLO_CHANNEL'),
+			'channel': tx_channel,  # Use the determined transmit channel
 			'type': 'audio',
 			'codec': 'opus',
 			'codec_header': self._codec_header_b64,
@@ -330,7 +363,26 @@ class ZelloController:
 			self._txing = False
 			return
 		seq_val = self.get_seq()
-		stop_payload = {'command': 'stop_stream', 'seq': seq_val, 'channel': os.environ.get('ZELLO_CHANNEL'), 'stream_id': self._stream_id}
+
+		zello_channel_env = os.environ.get('ZELLO_CHANNEL')
+		tx_channel = None
+		try:
+			# Attempt to parse ZELLO_CHANNEL as a JSON array
+			channels = json.loads(zello_channel_env)
+			if isinstance(channels, list) and channels:
+				tx_channel = str(channels[0])  # Stop transmission on the first valid channel in the list
+			else:
+				self._logger.warning(f"ZELLO_CHANNEL '{zello_channel_env}' is an empty or invalid JSON array. Fallback to single channel string.")
+				tx_channel = zello_channel_env  # Fallback if list is empty or invalid
+		except (json.JSONDecodeError, ValueError):
+			tx_channel = zello_channel_env  # Fallback to single channel string
+
+		if not tx_channel or not str(tx_channel).strip():
+			self._logger.warning('No valid ZELLO_CHANNEL specified for stopping transmission.')
+			self._txing = False
+			return
+
+		stop_payload = {'command': 'stop_stream', 'seq': seq_val, 'channel': tx_channel, 'stream_id': self._stream_id}
 		if self._logger.isEnabledFor(logging.DEBUG):
 			self._logger.debug(f'Requesting stop for Zello stream {self._stream_id} (seq={seq_val})')
 			self._logger.debug(json.dumps(self._redact(stop_payload)))
